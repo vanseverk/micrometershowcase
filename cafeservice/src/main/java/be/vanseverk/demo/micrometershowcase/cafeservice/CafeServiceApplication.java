@@ -1,10 +1,7 @@
 package be.vanseverk.demo.micrometershowcase.cafeservice;
 
 import io.micrometer.core.annotation.Timed;
-import io.micrometer.core.instrument.Counter;
-import io.micrometer.core.instrument.DistributionSummary;
-import io.micrometer.core.instrument.MeterRegistry;
-import io.micrometer.core.instrument.Timer;
+import io.micrometer.core.instrument.*;
 import io.micrometer.core.instrument.config.MeterFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
@@ -95,6 +92,10 @@ public class CafeServiceApplication {
 
         @Autowired
         public DrinkService(MeterRegistry meterRegistry) {
+            Gauge.builder("drinkcalculation.getDrinkPrice.gauge",
+                    () -> r.nextInt())
+                    .register(meterRegistry);
+
             //drinkCalculationDetailedTimer = meterRegistry.timer("drinkcalculation.getDrinkPrice.timer.detailed");
             drinkCalculationDetailedTimer = Timer.builder("drinkcalculation.getDrinkPrice.timer.detailed")
                     .publishPercentiles(0.5, 0.95) // median and 95th percentile
