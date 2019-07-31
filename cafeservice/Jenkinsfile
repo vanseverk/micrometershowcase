@@ -20,11 +20,6 @@ pipeline {
       bat 'docker push vanseverk/cafeserviceapplication:latest'
     }
   }
-  stage('Kubernetes Deploy') {
-    steps {
-      bat 'kubectl run cafeserviceapplication --namespace=monitoring --image=vanseverk/cafeserviceapplication:latest --port=8080'
-    }
-  }
  }
 }
 
