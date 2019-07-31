@@ -92,8 +92,8 @@ public class CafeServiceApplication {
 
         @Autowired
         public DrinkService(MeterRegistry meterRegistry) {
-            Gauge.builder("drinkcalculation.getDrinkPrice.gauge",
-                    () -> r.nextInt())
+            Gauge.builder("drinkcalculation.capacity.gauge",
+                    () -> r.nextInt(100))
                     .register(meterRegistry);
 
             //drinkCalculationDetailedTimer = meterRegistry.timer("drinkcalculation.getDrinkPrice.timer.detailed");
